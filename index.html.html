@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy 32nd Monthsary 💕</title>
+<style>
+:root{--bg1:#2b0a1f;--bg2:#6b1a4a;--card:rgba(255,255,255,.1);--text:#fff;--pink:#ff6b9d;--soft:#ffd1e3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--text);background:linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed;min-height:100vh;display:flex;justify-content:center;overflow-x:hidden}
+#hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.h{position:absolute;bottom:-40px;animation:rise linear forwards;opacity:.7}
+@keyframes rise{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+main{position:relative;z-index:1;width:100%;max-width:520px;padding:20px 16px 40px}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);border-radius:22px;padding:24px 20px;margin-top:16px;animation:pop .5s ease}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+h1{font-size:2rem;margin:0 0 8px;text-align:center;line-height:1.2}
+h2{font-size:1.3rem;margin:0 0 14px;line-height:1.4}
+p{line-height:1.7;margin:0 0 12px}
+.big{font-size:3.2rem;text-align:center;animation:beat 1.4s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.center{text-align:center}
+.prog{display:flex;justify-content:center;gap:8px;font-size:1.4rem}
+.prog span{opacity:.3;filter:grayscale(1)}.prog span.on{opacity:1;filter:none}
+button,.btn{font:inherit;cursor:pointer;border:0;border-radius:14px;padding:13px 18px;background:linear-gradient(135deg,var(--pink),#c9407a);color:#fff;font-size:1rem;text-decoration:none;display:inline-block;transition:transform .15s}
+button:active{transform:scale(.96)}
+.opt{display:block;width:100%;margin-bottom:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);text-align:left}
+.opt:hover{background:rgba(255,107,157,.45)}
+input{font:inherit;width:100%;padding:13px;border-radius:14px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);color:#fff;font-size:1.1rem;text-align:center;margin-bottom:12px}
+input::placeholder{color:#ffd1e3aa}
+.msg{min-height:1.5em;color:var(--soft);font-style:italic;text-align:center;margin-top:10px}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.video{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;margin-bottom:14px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;height:100%;color:var(--soft)}
+.sweet{font-size:1.1rem;text-align:center;color:var(--soft);font-style:italic}
+.love{white-space:pre-line;text-align:left}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div id="hearts"></div>
+<main id="app"></main>
+<script>
+/* ====== I-EDIT DITO ====== */
+const HER_NAME = "Mahal ko";      // ilagay ang pangalan o palayaw niya
+const YOUR_NAME = "Ang Mahal Mo"; // pangalan mo
+
+// ILAGAY DITO ANG GOOGLE DRIVE SHARE LINKS (Anyone with the link → Viewer)
+const VIDEO_LINKS = [
+  "https://drive.google.com/file/d/1tygZBB1dW3w5mzXstZFp5At0mH0wjZKE/view?usp=drivesdk",
+  "https://drive.google.com/file/d/1yj6qASubYP3lj0BdyS673jjU5rO0jB0k/view?usp=drivesdk",
+  "https://drive.google.com/file/d/1YiE5hTu2sssHHVLjXQlE1hU03ufxugOr/view?usp=drivesdk",
+  "https://drive.google.com/file/d/1hjVfHGJCDxCqT1Yi0cJ_D1C0EAmO9WVS/view?usp=drivesdk",
+  "https://drive.google.com/file/d/1YSt2zD5l9eORkRUMjtNkLHgFr8PQDiY_/view?usp=drivesdk",
+  "https://drive.google.com/file/d/1caSfmPh3otyrf8yGQQQysdTHdkF6WpQI/view?usp=drivesdk" // lalabas kasama ng huling mensahe
+];
+const FOLDER_URL = "https://drive.google.com/drive/folders/1BQqDCH3U4GAfGc4IRjLrmJwBe2B7I8n0";
+/* ======================== */
+
+const STEPS = [
+  {q:"Ano ang paborito kong kulay? 💙", type:"mc", options:["Pula","Blue","Berde","Dilaw"], answer:"blue",
+   sweet:"Kahit anong kulay pa ang paborito ko, ikaw pa rin ang pinakamagandang kulay sa buhay ko. 💙"},
+  {q:"Kailan ang monthsary natin? 📅", type:"date", answer:"02/16/2024",
+   sweet:"Ang bawat 16 ng buwan ay paborito kong araw, kasi ipinaalala nito sa akin na pinili mo ako. 💕"},
+  {q:"Kailan mo sinagot ang tanong kung puwede kitang maging girlfriend? 🥹", type:"date", answer:"04/16/2024",
+   sweet:"Ang pinakamasayang 'oo' na narinig ko sa buong buhay ko. Hindi ko ito makakalimutan kailanman. 🌹"},
+  {q:"Ano ang paborito kong pagkain? 🍝", type:"mc", options:["Adobo","Sinigang","Spaghetti","Pizza"], answer:"spaghetti",
+   sweet:"Masarap ang spaghetti, pero mas masarap ang bawat sandaling kasama ka. 🍝❤️"},
+  {q:"Ano ang paborito nating kanta, 'yung kantang saulado natin? 🎶", type:"mc", options:["Tadhana","Tibok","Kathang Isip","Mundo"], answer:"tibok",
+   sweet:"Sa bawat tibok ng puso ko, ikaw ang laman nito, noon, ngayon, at magpakailanman. 🎶💗"}
+];
+
+const FINAL = `Mahal kong ${HER_NAME},
+
+Maligayang ika-32 monthsary sa atin! 🎉💖
+
+32 buwan na pala. Parang kahapon lang noong sinagot mo ako, pero ngayon, hindi ko na maisip ang buhay ko nang wala ka. Ikaw ang paborito kong tao, ang pahinga ko sa pagod, at ang tahanan ng puso ko.
+
+Salamat sa lahat ng tawa, sa mga yakap, sa pang-unawa, at sa pagpili mo sa akin araw-araw, kahit alam mong hindi ako perpekto.
+
+Alam kong hindi laging madali. Merong mga araw na susubukin tayo ng buhay. Pero kaya natin 'to, basta magkasama tayo. Sa saya at sa hirap, sa ginhawa at sa unos, hawak-kamay pa rin nating haharapin ang lahat.
+
+Pangako ko sa'yo: hindi kita bibitawan. Aalagaan kita, iintindihin, at mamahalin nang buong-buo, hanggang sa pagtanda, hanggang sa dulo ng panahon. 💍✨
+
+Ikaw ang una kong naiisip paggising ko at ang huli bago ako matulog. Ikaw ang sagot sa lahat ng dasal ko.
+
+Mahal na mahal kita, ngayon at magpakailanman. 💞
+
+Walang hanggang pagmamahal,
+${YOUR_NAME} 🌹`;
+
+const app = document.getElementById('app');
+let i = 0;
+
+function hearts(n=1){
+  const box=document.getElementById('hearts');
+  for(let k=0;k<n;k++){
+    const h=document.createElement('div');h.className='h';
+    h.textContent=['💖','💕','💗','💘','🌹'][Math.floor(Math.random()*5)];
+    h.style.left=Math.random()*100+'vw';
+    h.style.fontSize=(16+Math.random()*26)+'px';
+    h.style.animationDuration=(6+Math.random()*6)+'s';
+    box.appendChild(h);setTimeout(()=>h.remove(),12000);
+  }
+}
+setInterval(()=>hearts(1),900);
+
+function progress(){
+  return '<div class="prog">'+STEPS.map((_,k)=>`<span class="${k<i?'on':''}">💖</span>`).join('')+'</div>';
+}
+
+function intro(){
+  app.innerHTML=`<div class="card center">
+    <div class="big">💕</div>
+    <h1>Para sa'yo, ${HER_NAME}</h1>
+    <p>May espesyal akong sorpresa para sa ika-<b>32 monthsary</b> natin.</p>
+    <p>Para mabuksan ang bawat video, sagutin mo muna ang mga tanong tungkol sa ating dalawa. Handa ka na ba, mahal? 😘</p>
+    <button id="go">Simulan na natin 💖</button></div>`;
+  document.getElementById('go').onclick=()=>{hearts(12);question();};
+}
+
+function norm(s){return s.trim().toLowerCase();}
+function normDate(s){
+  const m=s.trim().match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})$/);
+  return m?`${m[1].padStart(2,'0')}/${m[2].padStart(2,'0')}/${m[3]}`:s.trim();
+}
+
+function question(){
+  const s=STEPS[i];
+  let body='';
+  if(s.type==='mc') body=s.options.map(o=>`<button class="opt" data-v="${o}">${o}</button>`).join('');
+  else body=`<input id="d" inputmode="numeric" placeholder="MM/DD/YYYY" maxlength="10"><button id="chk" style="width:100%">Isumite 💌</button>`;
+  app.innerHTML=`${progress()}<div class="card" id="c">
+    <p class="center" style="opacity:.7">Tanong ${i+1} sa ${STEPS.length}</p>
+    <h2 class="center">${s.q}</h2>${body}<div class="msg" id="m"></div></div>`;
+  const wrong=()=>{
+    const c=document.getElementById('c');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');
+    const t=["Hmm, hindi pa yata 'yan, mahal. Subukan mo ulit! 🥺","Malapit na! Alam kong alam mo 'yan. 💭","Aww, mali. Pero cute ka pa rin. Isa pang try! 😘"];
+    document.getElementById('m').textContent=t[Math.floor(Math.random()*t.length)];
+  };
+  const ok=()=>{hearts(18);video();};
+  if(s.type==='mc') document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>norm(b.dataset.v)===s.answer?ok():wrong());
+  else{
+    const inp=document.getElementById('d');
+    inp.addEventListener('input',()=>{ // auto-slash
+      let v=inp.value.replace(/[^\d]/g,'').slice(0,8);
+      if(v.length>4)v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+      else if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);
+      inp.value=v;});
+    const check=()=>normDate(inp.value)===s.answer?ok():wrong();
+    document.getElementById('chk').onclick=check;
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  }
+}
+
+function embedUrl(link){
+  const m=link.match(/\/d\/([\w-]+)/)||link.match(/[?&]id=([\w-]+)/);
+  return m?`https://drive.google.com/file/d/${m[1]}/preview`:null;
+}
+
+function video(){
+  const s=STEPS[i], link=VIDEO_LINKS[i], url=embedUrl(link||'');
+  const player=url
+    ? `<iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen></iframe>`
+    : `<div class="ph"><div>🎬 Video #${i+1}<br><br><a class="btn" href="${FOLDER_URL}" target="_blank" rel="noopener">Buksan ang folder ↗</a></div></div>`;
+  const open=url?`<p class="center"><a class="btn" style="background:rgba(255,255,255,.18)" href="${link}" target="_blank" rel="noopener">Hindi gumagana? Buksan sa Drive ↗</a></p>`:'';
+  const last=i===STEPS.length-1;
+  app.innerHTML=`${progress()}<div class="card">
+    <h2 class="center">Tama! 🎉 Narito ang video #${i+1} 💖</h2>
+    <div class="video">${player}</div>${open}
+    <p class="sweet">${s.sweet}</p>
+    <div class="center"><button id="nx">${last?'Buksan ang huling sorpresa 💌':'Susunod na tanong 💕'}</button></div></div>`;
+  document.getElementById('nx').onclick=()=>{i++;hearts(10);last?finale():question();};
+}
+
+function playerFor(idx){
+  const url=embedUrl(VIDEO_LINKS[idx]||'');
+  return url
+    ? `<iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen></iframe>`
+    : `<div class="ph"><div>🎬 Video #${idx+1}<br><br><a class="btn" href="${FOLDER_URL}" target="_blank" rel="noopener">Buksan ang folder ↗</a></div></div>`;
+}
+
+function finale(){
+  app.innerHTML=`<div class="card">
+    <div class="big">💖</div>
+    <h1>Happy 32nd Monthsary! 🎉</h1>
+    <p class="love">${FINAL}</p>
+    <h2 class="center">💌 Isang huling video para sa'yo 💌</h2>
+    <div class="video">${playerFor(5)}</div>
+    <p class="sweet">Ikaw ang pinakamagandang nangyari sa buhay ko. Salamat sa 32 buwan, at sa lahat ng buwan na darating pa. 💍</p>
+    <div class="center"><button id="again">Panoorin ulit mula umpisa 🔁</button></div></div>`;
+  document.getElementById('again').onclick=()=>{i=0;intro();};
+  hearts(60);
+  let n=0;const t=setInterval(()=>{hearts(8);if(++n>12)clearInterval(t);},500);
+  window.scrollTo(0,0);
+}
+
+intro();
+</script>
+</body>
+</html>
